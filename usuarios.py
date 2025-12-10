@@ -1,4 +1,5 @@
 from typing import Protocol
+from exceptions import BibliotecaError
 
 class SolicitanteProtocol(Protocol):
     def solicitar_libro(self, titulo: str) -> str:
@@ -22,6 +23,8 @@ class Estudiante(Usuario):
         self.limite_libros = 3
 
     def solicitar_libro(self, titulo):
+        if not titulo:
+            raise BibliotecaError("El libro con el titulo no es valido")
         if len(self.libros_prestados) < self.limite_libros:
             self.libros_prestados.append(titulo)
             return f"Prestamos del libro: {titulo} autorizado."
@@ -40,16 +43,3 @@ class Profesor(Usuario):
         self.libros_prestados.append(titulo)
         return f"Prestamo del libro: {titulo} autorizado."
 
-
-estudiante = Estudiante("luis", "55454", "sistemas")
-estudiante_1 = Estudiante("jose", "35658", "salud")
-profesor = Profesor("oscar", "32164")
-
-from libros import Libro
-
-libro = Libro("libro x", "Fulano", "3425", True)
-
-usuarios: list[SolicitanteProtocol] = [estudiante, estudiante_1, profesor]
-
-for usuario in usuarios:
-    print(usuario.solicitar_libro("titulo de ejemplo"))

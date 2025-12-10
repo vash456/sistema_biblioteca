@@ -1,0 +1,2 @@
+class BibliotecaError(Exception):
+    pass

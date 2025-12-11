@@ -1,7 +1,7 @@
 from libros import LibroFisico
 from biblioteca import Biblioteca
 from usuarios import Estudiante, Profesor, SolicitanteProtocol
-from exceptions import BibliotecaError
+from exceptions import BibliotecaError, UsuarioNoEncontradoError
 
 
 def main():
@@ -15,17 +15,27 @@ def main():
     estudiante_1 = Estudiante("jose", "35658", "salud")
     profesor = Profesor("oscar", "32164")
 
-    usuarios: list[SolicitanteProtocol] = [estudiante, estudiante_1, profesor]
+    biblioteca.usuarios = [estudiante, estudiante_1, profesor]
 
     biblioteca.libros = [mi_libro, book2, book3]
 
-    print(biblioteca.libros)
+    print("Bienvenido a la Biblioteca")
     
+    print("Libros Disponibles:")
+    for titulo in biblioteca.libros_disponibles():
+        print(f"  - {titulo}")
+    print()
+        
+    cedula = input("Digite el numero cedula: ")
     try:
-        print(estudiante.solicitar_libro(None))
-    except BibliotecaError as e:
-        print(f"{e}, {type(e)}")
-        print("Error: No se pudo solicitar el libro")
+        usuario = biblioteca.buscar_usuario(cedula)
+        print(usuario.cedula, usuario.nombre)
+    except UsuarioNoEncontradoError as e:
+        print("El usuario que estas buscando no existe: {e}")
+        
+    
+    
+    
         
 
 

@@ -16,11 +16,11 @@ class LibroProtocol(Protocol):
 
 
 class Libro:
-    def __init__(self, titulo, autor, isbn, disponible):
+    def __init__(self, titulo, autor, isbn):
         self.titulo = titulo
         self.autor = autor
         self.isbn = isbn
-        self.disponible = disponible
+        self.disponible = True
         self.__veces_prestado = 0
     
     def __str__(self):

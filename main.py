@@ -2,22 +2,15 @@ from libros import LibroFisico
 from biblioteca import Biblioteca
 from usuarios import Estudiante, Profesor, SolicitanteProtocol
 from exceptions import BibliotecaError, UsuarioNoEncontradoError
-
+from data import data_estudiantes, data_libros
 
 def main():
     biblioteca = Biblioteca("Biblioteca virtual")
-    mi_libro = LibroFisico(
-        "100 años de soledad", "Gabrial Garcias Marquez", "prueba", True
-    )
-    book2 = LibroFisico("libro2", "autor2", "prueba", True)
-    book3 = LibroFisico("libro3", "autor3", "prueba", False)
-    estudiante = Estudiante("luis", "55454", "sistemas")
-    estudiante_1 = Estudiante("jose", "35658", "salud")
-    profesor = Profesor("oscar", "32164")
+    profesor = Profesor("Felipe", "12345612")
 
-    biblioteca.usuarios = [estudiante, estudiante_1, profesor]
+    biblioteca.usuarios = [profesor] + data_estudiantes
 
-    biblioteca.libros = [mi_libro, book2, book3]
+    biblioteca.libros = data_libros
 
     print("Bienvenido a la Biblioteca")
     

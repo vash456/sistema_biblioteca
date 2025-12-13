@@ -1,10 +1,17 @@
 from typing import Protocol
+from abc import ABC, abstractmethod
 from exceptions import BibliotecaError
 
 class SolicitanteProtocol(Protocol):
     def solicitar_libro(self, titulo: str) -> str:
         """Metodo que debe implementar cualquier solicitante"""
         ...
+
+class UsuarioBase(ABC):
+    @abstractmethod
+    def solicitar_libro(self):
+        pass
+
 
 class Usuario:
     def __init__(self, nombre, cedula):
@@ -14,6 +21,10 @@ class Usuario:
 
     def solicitar_libro(self, titulo):
         return f"Solicitud de libro '{titulo}' realizada."
+    
+    @property
+    def nombre_completo(self):
+        return f"{self.nombre} - {self.cedula}"
 
 
 class Estudiante(Usuario):

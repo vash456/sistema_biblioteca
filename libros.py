@@ -16,12 +16,18 @@ class LibroProtocol(Protocol):
 
 
 class Libro:
-    def __init__(self, titulo, autor, isbn):
+    def __init__(self, titulo, autor, isbn, disponible = True):
         self.titulo = titulo
         self.autor = autor
         self.isbn = isbn
-        self.disponible = True
+        self.disponible = disponible
         self.__veces_prestado = 0
+    
+    # metodo constructor que permite instanciar un libro no disponible
+    @classmethod
+    def crear_no_disponible(cls, titulo, autor, isbn): 
+        # cls es el mismo parametro de la clase libro(cls = Libro())
+        return cls(titulo, autor, isbn, disponible = False)
     
     def __str__(self):
         return f"{self.titulo} - {self.autor} - disponible: {self.disponible}"
